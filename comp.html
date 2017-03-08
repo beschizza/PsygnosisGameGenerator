@@ -1,0 +1,289 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<title>Psygnosis Presents</title>
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=.6">
+
+<style>
+@font-face {
+    font-family: 'font1';
+    src: url('fonts/1.ttf');
+}
+
+@font-face {
+    font-family: 'font2';
+    src: url('fonts/2.ttf');
+}
+
+@font-face {
+    font-family: 'font3';
+    src: url('fonts/3.ttf');
+}
+
+@font-face {
+    font-family: 'font4';
+    src: url('fonts/4.ttf');
+}
+
+@font-face {
+    font-family: 'font5';
+    src: url('fonts/5.ttf');
+}
+
+body {text-align:center;background-color:gray}
+#canvas {margin:10px}
+
+
+h1.hide {font-family:font1;font-weight:normal;font-size:0px}
+
+</style>
+
+
+<script type="text/javascript">
+
+
+/* Psygnosisy words */
+
+var words = new Array('Vengeance','Revenge','Avenger','Wrath','Implacable','Illustrious','Insurgent','Enmity','Venom','Vindication','Spite','Rancor','Malevolent','Malevolence','Malignant','Malign','Hatred','Vicious','Ire','Asperity','Cruelty','Belligerence','Anxiety','Arrogance','Aggressor','Destruction','Aggression','Arrogator','Lonely','Manipulator','Sadism','Violence','Victim','Vanity','Panic','Paranoia','Confusor','Condemnation','Competitor','Barbaric','Punishment','Recluse','Rejection','Sabotage','Resentment','Resignation','Procrastinator','Unforgiving','Antagonist','Offensive','Humiliation','Humiliator','Ridicule','Invader','Obligator','Neglect','Neglector','Interrogator','Suspicion','Blame','Bitterness','Covenant','Malice','Malefactor','Defiler','Abandoner','Anguish','Apathy','Betrayal','Conceit','Condemnation','Coveter','Comtempt','Disgust','Defiance','Dejection','Degrader','Deflator','Disappointment','Distress','Distrust','Mistrust','Enraged','Furious','Jealousy','Retaliator','Gruesome');
+
+/* Psygnosisy things*/
+
+var things = new Array('Cloud','Forest','Wrath','Awe','Dream','Gloom','Chaos','Blood','Murmur','Venom','Heart','Soul','Cage','Prison','Shade','Fear','Bones','Spell','Dread','Howl','Haunt','Weird','Web','Darkness','Cold','Cry','Call','Grave','Moon','Mist','Fog','Womb','Delusion','Whisper')
+
+/* Psygnosisy characters*/
+
+var characters = new Array('Phantasm','Validator','Humiliator','Coveter','Malefactor','Antagonist','Monster','Enemy','Deviant','Deviator','Hunter','Retaliator','Deflator','Recluse','Hermit','Wraith','Master','Overseer','Sorceror','Witch','Arrogator','Aggressor','Baron','Avenger','Reprisor','Succubus','Leviathan','Behemoth','Lamia','Harpy','Vampire','Gorgon','Incubus','Demon','Devil','Seraphim','Valkyrie','Savage','Embarassor',"Ambassador")
+
+
+/* Psygnosisy names */
+
+var names = new Array('Abaddon','Adramelech','Agares','Ahriman','Alastor','Palladio','Trump','Nicodemus','Asmodeus','Astaroth','Astarte','Astaroth','Azazel','Cratos','Barbatos','Valetoth','Beelzebub','Beleth','Belial','Belphegor','Berith','Lilith','Daityas','Dantalion','Decarabia','Demon','Eligos','Abigor','Ereshkor','Erinyes','Eurynome','Garuda','Fenrir','Gorgon','Hagetha','Iblis','Kappas','Hecate','Marax','Lucifer','Mammon','Baalberith','Ornias','Nybbas','Umbra','Moloch','Orobas','Rahova','Sylphid','Satan','Shaxxas','Valefor','Malefor','Zagan','Ifrita','Volacor');
+
+/* occasional funnies */
+
+var funnies = new Array('Jealous of the Graphics','Spatter of the Airbrush','Demo of the Amiga','Roger of the Dean','Reception of the Ambassador');
+
+
+
+
+/* Function to fetch random entry from arrays */
+a=function (x) {
+var r = [Math.floor ( Math.random() * x.length )]; 
+
+	/* building a string so people can share specific outputs */
+	var rShare = "0000" + r;
+	$sharestring += rShare.substr(rShare.length-2); 
+
+return x[r];
+}
+
+/* Function to generate a gamename 
+
+Types of name 
+
+words
+characters
+names
+things of the characters
+
+*/
+
+generate = function() {
+	var x = [Math.floor (Math.random() * 100)]; 
+	
+	switch(true) {
+    case (x < 20):
+        var rand1 = [Math.floor ( Math.random() * words.length )];
+		var gamename = words[rand1];
+        break;
+	case (x < 30):
+        var rand1 = [Math.floor ( Math.random() * characters.length )];
+		var gamename = characters[rand1];
+        break;
+	case (x < 60):
+        var rand1 = [Math.floor ( Math.random() * names.length )];
+		var gamename = names[rand1];
+        break;
+    case (x < 99):
+        var rand1 = [Math.floor ( Math.random() * things.length )]; 
+		var rand2 = [Math.floor ( Math.random() * characters.length )]; 
+		var gamename = things[rand1] + " of the " + characters[rand2];
+        break;
+    default:
+        var rand1 = [Math.floor ( Math.random() * funnies.length )];
+		var gamename = funnies[rand1];
+}
+
+	return gamename;
+	
+}
+	
+
+    function drawbox() {
+	
+            var ctx = document.getElementById('canvas');
+			
+            if (canvas.getContext) {
+
+                var ctx = canvas.getContext('2d');
+				
+
+                //overlay 
+                var img1 = new Image();
+                img1.src = 'paintings/wrap.png';
+				
+				//painting
+				
+                var img2 = new Image();				
+				var p = [Math.ceil ( Math.random() * 32 )]; 
+                img2.src = 'paintings/' + p + '.jpg';
+
+				//font
+				var f = 'font' + [Math.ceil ( Math.random() * 5 )]; 
+				
+				//generate a game name
+				var title = generate();
+				
+
+
+
+
+
+                //drawing
+                img1.onload = function () {
+				
+				//draw painting
+                    ctx.drawImage(img2, 0, 0, 1200, 1600, 30, 30, 742, 928);
+					
+                //draw wrap
+                    ctx.drawImage(img1, 0, 0, 1000, 1384, 0, 0, 800, 1000);
+                    
+				//draw title
+				
+	
+					
+					ctx.font="100px " + f;
+								 
+					var metrics = ctx.measureText(title);
+					var textWidth = metrics.width + 180; // 90 space left and right
+					var scalex = (canvas.width / textWidth) ;
+					var scaley = scalex;
+					ctx.scale(scalex, scaley);
+					
+					ctx.lineWidth=22;
+					ctx.strokeStyle="#000000";
+					ctx.strokeText(title, 90, 150);
+					
+					// random text shroud color
+					ctx.lineWidth=20;
+					var x = [Math.floor (Math.random() * 10)]; 
+	
+							switch(true) {
+							case (x < 2):
+								ctx.strokeStyle="#ccbb99";
+								break;
+							case (x < 3):
+								ctx.strokeStyle="#bbcc99";
+								break;
+							case (x < 5):
+								ctx.strokeStyle="#dd6677";
+								break;
+							case (x < 8):
+								ctx.strokeStyle="#000000";
+								break;
+							default:
+								ctx.strokeStyle="#333333";
+						}
+					ctx.strokeText(title, 90, 150);
+					
+					
+					
+					
+					ctx.lineWidth=4;
+					ctx.strokeStyle="#000000";
+					ctx.strokeText(title, 90, 150);
+					
+					// random text gradients
+					var gradient=ctx.createLinearGradient(0,90,0,140);
+					
+					var x = [Math.floor (Math.random() * 10)]; 
+	
+							switch(true) {
+							case (x < 2):
+								gradient.addColorStop("0","#faf4ff");
+								gradient.addColorStop("0.5","cyan");
+								gradient.addColorStop("1.0","#4444aa");
+								break;
+							case (x < 4):
+								gradient.addColorStop("0","red");
+								gradient.addColorStop("0.5","orange");
+								gradient.addColorStop("1.0","yellow");
+								break;
+							case (x < 6):
+								gradient.addColorStop("0","yellow");
+								gradient.addColorStop("0.5","gold");
+								gradient.addColorStop("1.0","orange");
+								break;
+							case (x < 8):
+								gradient.addColorStop("0","yellow");
+								gradient.addColorStop("0.5","chartreuse");
+								gradient.addColorStop("1.0","green");
+								break;
+							default:
+								gradient.addColorStop("0","yellow");
+								gradient.addColorStop("0.5","pink");
+								gradient.addColorStop("1.0","#cc77dd");
+						}
+						
+					ctx.fillStyle = gradient;
+					ctx.fillText(title,90,150);
+					 
+			
+					
+			
+					
+                };
+
+				
+            }
+
+			
+			
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+<h1 class="hide" style="font-family:font1">Font test here</h1>
+<h1 class="hide" style="font-family:font2">Font test here</h1>
+<h1 class="hide" style="font-family:font3">Font test here</h1>
+<h1 class="hide" style="font-family:font4">Font test here</h1>
+<h1 class="hide" style="font-family:font5">Font test here</h1>
+
+ <canvas id="canvas" width="800" height="1200"></canvas>
+
+
+
+</canvas>
+
+
+<script>
+
+window.onload = function() { 
+
+drawbox();
+
+
+
+} // window.onload waits for the image to be loaded before trying to draw it
+</script>
+
+</body>
+
+</html>

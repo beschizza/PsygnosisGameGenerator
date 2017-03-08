@@ -1,0 +1,409 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<title>Psygnosis Game Generator</title>
+<meta charset="utf-8">
+
+<meta name="viewport" content="initial-scale=.5,width=device-width, target-densitydpi=device-dpi">
+
+<!-- different viewport for iPads -->
+<meta id="viewport" name='viewport'>
+<script>
+    (function(doc) {
+        var viewport = document.getElementById('viewport');
+        if ( navigator.userAgent.match(/iPad/i)) {
+            viewport.setAttribute("content", "initial-scale=0.5");
+        } else if (  ) {
+            viewport.setAttribute("content", "initial-scale=1");
+        }
+    }(document));
+</script>
+
+
+<meta property="og:site_name" content="Random 1990s Psygnosis Game Generator" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://boingboing.net/features/psygnosis/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content="Psygnosis presents..." />
+<meta property="og:description" content="Randomly generates a Psygnosis-style early 1990s computer game" />
+<meta property="og:image" content="http://boingboing.net/features/psy/thumbnail.jpg" />
+<meta property="og:image:width"  content="1600"/>
+<meta property="og:image:heigh"  content="846"/>
+<meta property="fb:app_id" content="232202712726" />
+<meta property="article:section" content="Games" />
+
+<link rel="stylesheet" type="text/css" href="style.css?v2" />
+
+<script src="fontdetect/lib/fontdetect.min.js" type="text/javascript">
+</script>
+
+
+<script type="text/javascript">
+
+
+/* Psygnosisy words */
+
+var words = new Array('Vengeance','Revenge','Avenger','Wrath','Implacable','Illustrious','Insurgent','Enmity','Venom','Vindication','Spite','Rancor','Malevolent','Malevolence','Malignant','Malign','Hatred','Vicious','Ire','Asperity','Cruelty','Belligerence','Anxiety','Arrogance','Aggressor','Destruction','Aggression','Arrogator','Lonely','Manipulator','Sadism','Violence','Victim','Vanity','Panic','Paranoia','Confusor','Condemnation','Competitor','Barbaric','Punishment','Recluse','Rejection','Sabotage','Resentment','Resignation','Procrastinator','Unforgiving','Antagonist','Offensive','Humiliation','Humiliator','Ridicule','Invader','Obligator','Neglect','Neglector','Interrogator','Suspicion','Blame','Bitterness','Covenant','Malice','Malefactor','Defiler','Abandoner','Anguish','Apathy','Betrayal','Conceit','Condemnation','Coveter','Comtempt','Disgust','Defiance','Dejection','Degrader','Deflator','Disappointment','Distress','Distrust','Mistrust','Enraged','Furious','Jealousy','Retaliator','Gruesome');
+
+/* Psygnosisy things*/
+
+var things = new Array('Cloud','Forest','Wrath','Awe','Dream','Gloom','Chaos','Blood','Murmur','Venom','Heart','Soul','Cage','Prison','Shade','Fear','Bones','Spell','Dread','Howl','Haunt','Weird','Web','Darkness','Cold','Cry','Call','Grave','Moon','Mist','Fog','Womb','Delusion','Whisper')
+
+/* Psygnosisy characters*/
+
+var characters = new Array('Phantasm','Validator','Humiliator','Coveter','Malefactor','Antagonist','Monster','Enemy','Deviant','Deviator','Hunter','Retaliator','Deflator','Recluse','Hermit','Wraith','Master','Overseer','Sorceror','Witch','Arrogator','Aggressor','Baron','Avenger','Reprisor','Succubus','Leviathan','Behemoth','Lamia','Harpy','Vampire','Gorgon','Incubus','Demon','Devil','Seraphim','Valkyrie','Savage')
+
+
+/* Psygnosisy names */
+
+var names = new Array('Abaddon','Adramelech','Agares','Ahriman','Alastor','Palladio','Trump','Nicodemus','Asmodeus','Astaroth','Astarte','Astaroth','Azazel','Cratos','Barbatos','Valetoth','Beelzebub','Beleth','Belial','Belphegor','Berith','Lilith','Daityas','Dantalion','Decarabia','Demon','Eligos','Abigor','Ereshkor','Erinyes','Eurynome','Garuda','Fenrir','Gorgon','Hagetha','Iblis','Kappas','Hecate','Marax','Lucifer','Mammon','Baalberith','Ornias','Nybbas','Umbra','Moloch','Orobas','Rahova','Sylphid','Satan','Shaxxas','Valefor','Malefor','Zagan','Ifrita','Volacor');
+
+/* occasional funnies */
+
+var funnies = new Array('Jealous of the Graphics','Spatter of the Airbrush','Demo of the Amiga','Roger of the Dean','Reception of the Ambassador');
+
+/* globals */
+var gamename = "shadow of the default";
+var title; //should combine this with gamename
+var painting;
+var textshroudcolor;
+var textgradient;
+var f; //font
+
+
+/* Function to fetch random entry from arrays */
+a=function (x) {
+var r = [Math.floor ( Math.random() * x.length )]; 
+
+	/* building a string so people can share specific outputs */
+	var rShare = "0000" + r;
+	$sharestring += rShare.substr(rShare.length-2); 
+
+return x[r];
+}
+
+/* Function to generate a gamename */
+
+generate = function() {
+	var x = [Math.floor (Math.random() * 100)]; 
+	
+	switch(true) {
+    case (x < 20):
+        var rand1 = [Math.floor ( Math.random() * words.length )];
+		var gamename = words[rand1];
+        break;
+	case (x < 30):
+        var rand1 = [Math.floor ( Math.random() * characters.length )];
+		var gamename = characters[rand1];
+        break;
+	case (x < 60):
+        var rand1 = [Math.floor ( Math.random() * names.length )];
+		var gamename = names[rand1];
+        break;
+    case (x < 99):
+        var rand1 = [Math.floor ( Math.random() * things.length )]; 
+		var rand2 = [Math.floor ( Math.random() * characters.length )]; 
+		var gamename = things[rand1] + " of the " + characters[rand2];
+        break;
+    default:
+        var rand1 = [Math.floor ( Math.random() * funnies.length )];
+		var gamename = funnies[rand1];
+}
+
+	return gamename;
+	
+}
+	
+/* Function to draw the game box */
+ 
+  
+    function drawbox() {
+	
+            var ctx = document.getElementById('canvas');
+			
+            if (canvas.getContext) {
+
+                var ctx = canvas.getContext('2d');
+				
+				//hide the loading spinner
+				document.getElementById('progressOwl').style.display= "none";
+				
+				//draw painting
+                    ctx.drawImage(img2, 0, 0, 1200, 1296, 20, 20, 600, 750);
+					
+                //draw wrap
+                    ctx.drawImage(img1, 0, 0, 1000, 1384, 0, 0, 600, 750);
+                    
+				//draw title
+	
+					ctx.font="100px " + f;
+								 
+					var metrics = ctx.measureText(title);
+					var textWidth = metrics.width + 180; // 90 space left and right
+					var scalex = (canvas.width / textWidth) ;
+					var scaley = scalex;
+					ctx.scale(scalex, scaley);
+					
+					ctx.lineWidth=22;
+					ctx.strokeStyle="#000000";
+					ctx.strokeText(title, 90, 150);
+					
+				// draw text shroud color
+				
+					ctx.lineWidth=20;	
+							switch(true) {
+							case (textshroudcolor < 2):
+								ctx.strokeStyle="#ccbb99";
+								break;
+							case (textshroudcolor < 3):
+								ctx.strokeStyle="#bbcc99";
+								break;
+							case (textshroudcolor < 5):
+								ctx.strokeStyle="#dd6677";
+								break;
+							case (textshroudcolor < 8):
+								ctx.strokeStyle="#000000";
+								break;
+							default:
+								ctx.strokeStyle="#333333";
+						}
+					ctx.strokeText(title, 90, 150);
+					
+					ctx.lineWidth=4;
+					ctx.strokeStyle="#000000";
+					ctx.strokeText(title, 90, 150);
+					
+					// random text gradients
+					var gradient=ctx.createLinearGradient(0,90,0,140);
+						
+							switch(true) {
+							case (textgradient < 2):
+								gradient.addColorStop("0","#faf4ff");
+								gradient.addColorStop("0.5","cyan");
+								gradient.addColorStop("1.0","#4444aa");
+								break;
+							case (textgradient < 4):
+								gradient.addColorStop("0","red");
+								gradient.addColorStop("0.5","orange");
+								gradient.addColorStop("1.0","yellow");
+								break;
+							case (textgradient < 6):
+								gradient.addColorStop("0","yellow");
+								gradient.addColorStop("0.5","gold");
+								gradient.addColorStop("1.0","orange");
+								break;
+							case (textgradient < 8):
+								gradient.addColorStop("0","yellow");
+								gradient.addColorStop("0.5","chartreuse");
+								gradient.addColorStop("1.0","green");
+								break;
+							default:
+								gradient.addColorStop("0","yellow");
+								gradient.addColorStop("0.5","pink");
+								gradient.addColorStop("1.0","#cc77dd");
+						}
+						
+					ctx.fillStyle = gradient;
+					ctx.fillText(title,90,150);
+					
+					//output the share code
+					console.log(title);
+					var URLfriendlyname = title.replace(/\ /g, '+');
+					var URL = 'http://boingboing.net/features/psy/?gamename=' + URLfriendlyname + "&f=" + f + "&painting=" + painting + "&textshroudcolor=" + textshroudcolor + "&textgradient=" + textgradient;
+					document.getElementById('link').value= URL;
+					
+					var encodedURL = encodeURIComponent('http://boingboing.net/features/psy/?gamename=' + URLfriendlyname + "&f=" + f + "&painting=" + painting + "&textshroudcolor=" + textshroudcolor + "&textgradient=" + textgradient);
+					
+					document.getElementById('twitterlink').href= 'https://twitter.com/intent/tweet/?url=' + encodedURL + "&text=Psygnosis%20presents%20" + URLfriendlyname;
+					document.getElementById('facebooklink').href= 'http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(URL);
+
+			
+                		
+            }		
+        }
+		
+
+</script>
+
+</head>
+
+<body>
+
+<a href="http://boingboing.net"><img id="bblogo" src="http://media.boingboing.net/wp-content/themes/bng/i/logo.png"></a>
+
+<!-- all this supposedly preloads fonts so canvas has them when it renders -->
+<h1 class="hide" style="font-family:font1">loading a font</h1>
+<h1 class="hide" style="font-family:font2">loading a font</h1>
+<h1 class="hide" style="font-family:font3">loading a font</h1>
+<h1 class="hide" style="font-family:font4">loading a font</h1>
+<h1 class="hide" style="font-family:font5">loading a font</h1>
+<h1 class="hide" style="font-family:font6">loading a font</h1>
+
+
+
+
+<div id="canvasWrapper" >
+	
+	<!-- spinner, gets hidden when the image is loaded -->
+	<img src="owl.gif" id="progressOwl">
+	
+	<canvas id="canvas" width="600" height="750"></canvas>
+
+</div>
+
+
+
+
+
+<div id="extraStuff">
+<img src="agony.gif" style="display:inline;">
+<a id="generateAnother" href="http://boingboing.net/features/psy/"><img src="generate.png" id="generatebutton"></a>
+
+
+
+
+<img src="agony.gif" class="reverse">
+</div>
+
+<h3>Psygnosis Game Generator (by <a href="http://twitter.com/beschizza">@beschizza</a>)</h3>
+
+
+<div id="credits">
+<p>With thanks and apologies to Psygnosis, Roger Dean, and everyone else involved in making the <em>real</em> games so wonderfully evocative of other worlds. 
+<p>Instaleld on a webserver, you can fool with URL paramenters to refine the output ("+" is space in titles). 
+
+<a href=
+<p>Fonts used: <a href="http://www.dafont.com/petar-acanski.d5738">BlowBrush, by <a href="https://creativemarket.com/thizizraz">Petar Acanski</a>, <a href="http://www.dafont.com/search.php?q=sheeping">Sheeping Dogs</a> by <a href="http://chequered.ink/">Chequered Ink</a>, <a href="http://www.fonts101.com/fonts/view/Uncategorized/55734/classic_yes_font">"Classic Yes Font"</a> (creator unknown. Perhaps <a href="http://www.varian.net/dreamfonts/yesfonts/index.html">Yesfonts</a> or <a href="http://www.yesfans.com/showthread.php?39739-Yes-Roger-Dean-Fonts-(for-Windows)/page2">Jim Dornberger.</a>), <a href="http://www.dafont.com/nuevo-passion.font">Nuevo Passion</a> by <a href="http://www.iconian.com/">Dan Zadorozny / Iconian Fonts</a>, and <a href="http://www.dafont.com/squarefont.font?l[]=10&l[]=1">Squarefont</a> by Agustín Bou.
+
+<p>More on the inspirations at the <a href="http://boingboing.net/2016/09/06/psygnosis-amiga-game-generator.html">accompanying blog post</a>.
+
+
+</div>
+
+<script>
+
+//Lets check the URL to see if the user is supplying variables
+
+function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
+
+
+//get name of game
+
+if (getURLParameter('gamename') !== "null") {
+	var gamename = getURLParameter('gamename');
+		console.log('gamename specified as ' + gamename);
+
+	gamename= gamename.replace(/\+/g, ' '); /*Turn URL pluses into spaces*/
+	gamename= gamename.replace(/[^A-Za-z0-9 ]/g, ''); /* general sanity */
+	
+			console.log('gamename specified as ' + gamename);
+
+	var title = gamename;
+}
+else {
+	var title = generate();
+	console.log('gamename not specified, generated ' + title);
+}
+
+
+//font
+
+if (getURLParameter('f') !== "null") {
+	console.log('font specified');
+	var f = getURLParameter('f');
+
+}
+else {
+	console.log('font not specified, randomizing');
+	f = 'font' + [Math.ceil ( Math.random() * 6 )]; 
+}
+
+//painting
+
+if (getURLParameter('painting') !== "null") {
+	console.log('painting specified');
+	var painting = getURLParameter('painting');
+
+}
+else {
+	console.log('painting not specified, randomizing');
+	var painting = [Math.ceil ( Math.random() * 32 )]; 
+}
+
+
+//text shroud color
+
+if (getURLParameter('textshroudcolor') !== "null") {
+	console.log('textshroudcolor specified');
+	var textshroudcolor = getURLParameter('textshroudcolor');
+
+}
+else {
+	console.log('textshroudcolor not specified, randomizing');
+	var textshroudcolor = [Math.floor (Math.random() * 10)]; 
+}
+
+//text gradient
+
+if (getURLParameter('textgradient') !== "null") {
+	console.log('textgradient specified');
+	var textgradient = getURLParameter('textgradient');
+	
+
+}
+else {
+	console.log('textgradient not specified, randomizing');
+	textgradient = [Math.floor (Math.random() * 10)]; 
+}
+
+
+//for use in preloading fonts, then triggering the drawing of the game box
+
+function onMyCoolFontLoaded (fontname)
+{
+    console.log(fontname + ' looks good!');
+	drawbox();
+}
+
+function onItDidntLoad (fontname)
+{
+    alert ('internet connection too slow, refresh the page.');
+}			
+				
+		
+
+//set up images
+
+var img1 = new Image();
+var img2 = new Image();	
+img1.src = 'paintings/wrap.png';
+img2.src = 'paintings/' + painting + '.jpg';			
+
+//when the wrap's loaded
+img1.onload = function() { 
+	console.log('wrap loaded');	
+	
+	//when the painting's loaded
+	img2.onload = function() { 
+		console.log('painting loaded');
+		
+		//when the fonts are verified
+		FontDetect.onFontLoaded (f, onMyCoolFontLoaded, onItDidntLoad, {msTimeout: 3000});
+	}
+
+} 
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
