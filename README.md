@@ -2,6 +2,11 @@
 
 ##By Rob Beschizza
 
+![Psygnosis Game Generator demos](https://i0.wp.com/media.boingboing.net/wp-content/uploads/2016/09/psygnosis.jpg?w=1600
+ "Psygnosis Game Generator demos")
+
+See it at [https://beschizza.github.io/PsygnosisGameGenerator/](https://beschizza.github.io/PsygnosisGameGenerator/)
+
 With thanks and apologies to Psygnosis, Roger Dean, and everyone else involved in making the *real* games so wonderfully evocative of other worlds.
  
 Installed on a webserver, you can fool with URL paramenters to refine the output ("+" is space in titles). 
